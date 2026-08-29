@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; background: #0a1310; }
+  body { margin: 0; background: #0a1310; color: #edf1e9; font-family: "IBM Plex Sans", system-ui, sans-serif; }
+  * { box-sizing: border-box; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #e0a37c; }
+  ::selection { background: #d98a5f; color: #0a1310; }
+  @keyframes cueSlide { 0% { transform: translateY(-100%); opacity: 0 } 40% { opacity: 1 } 100% { transform: translateY(100%); opacity: 0 } }
+  @keyframes shimmer { 0% { background-position: 200% 50% } 100% { background-position: -100% 50% } }
+  @keyframes glowPulse { 0%, 100% { opacity: .35; transform: scale(1) } 50% { opacity: .6; transform: scale(1.06) } }
+  @keyframes floatY { 0%, 100% { transform: translateY(0) scale(1); opacity: .8 } 50% { transform: translateY(-16px) scale(1.05); opacity: 1 } }
+  @keyframes stationIn { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+  @keyframes drawLine { from { stroke-dashoffset: 320 } to { stroke-dashoffset: 0 } }
+  .roadmap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 1140px) { .roadmap { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 620px) { .roadmap { grid-template-columns: minmax(0, 1fr); } }
+  .case { display: grid; grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr); gap: clamp(28px, 4vw, 72px); }
+  @media (max-width: 900px) { .case { grid-template-columns: minmax(0, 1fr); } }
+  .step:last-child { padding-bottom: 0; }
+  .step:last-child .step-line, .step:last-child .step-caret { display: none; }
+  .step p { transition: color .3s ease; }
+  .step:hover p { color: #f4f7f0; }
+  .num { background-image: linear-gradient(100deg, #e8b795 20%, #fff3e6 45%, #d98a5f 70%); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shimmer 7s linear infinite; }
+</style>
+</helmet>
+
+<div style="background:#0a1310;color:#edf1e9;font-family:'IBM Plex Sans',system-ui,sans-serif;font-weight:300;overflow-x:hidden">
+
+  <div id="nav" style="position:sticky;top:0;z-index:50;background:rgba(10,19,16,0.86);backdrop-filter:blur(8px);border-bottom:1px solid #1d2e27;padding:20px 5vw;display:flex;align-items:baseline;justify-content:space-between;gap:24px;transition:padding .35s ease">
+    <a href="#top" style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:500">Vishnupriya</a>
+    <div style="display:flex;gap:clamp(16px,2.4vw,34px);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#8fa197;flex-wrap:wrap;justify-content:flex-end">
+      <a href="#about" style="padding-bottom:2px;border-bottom:1px solid transparent" style-hover="border-bottom:1px solid #d98a5f;color:#e8b795">About</a>
+      <a href="#expertise" style="padding-bottom:2px;border-bottom:1px solid transparent" style-hover="border-bottom:1px solid #d98a5f;color:#e8b795">Expertise</a>
+      <a href="#frameworks" style="padding-bottom:2px;border-bottom:1px solid transparent" style-hover="border-bottom:1px solid #d98a5f;color:#e8b795">Frameworks</a>
+      <a href="#work" style="padding-bottom:2px;border-bottom:1px solid transparent" style-hover="border-bottom:1px solid #d98a5f;color:#e8b795">Case Studies</a>
+      <a href="#contact" style="padding-bottom:2px;border-bottom:1px solid transparent" style-hover="border-bottom:1px solid #d98a5f;color:#e8b795">Contact</a>
+    </div>
+    <div id="progress" style="position:absolute;left:0;bottom:-1px;height:1px;width:0%;background:#d98a5f"></div>
+  </div>
+
+  <section id="top" style="position:relative;padding:clamp(56px,9vw,132px) 5vw clamp(48px,6vw,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:clamp(40px,6vw,88px);align-items:end;max-width:1600px;margin:0 auto">
+    <div style="position:absolute;top:-8%;left:-6%;width:min(620px,55vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(217,138,95,0.10),rgba(217,138,95,0) 65%);pointer-events:none;animation:glowPulse 12s ease-in-out infinite"></div>
+    <div data-reveal="1" style="position:relative">
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:clamp(26px,3vw,44px)">
+        <div style="font-family:Newsreader,Georgia,serif;font-size:clamp(24px,2.1vw,32px);line-height:1;letter-spacing:0.01em">Vishnupriya</div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <span style="width:26px;height:1px;background:#d98a5f"></span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:#e0a37c">Retention Marketing Strategist</span>
+        </div>
+      </div>
+      <h1 style="font-family:Newsreader,Georgia,serif;font-weight:400;font-size:clamp(46px,6.8vw,108px);line-height:0.97;letter-spacing:-0.028em;margin:0;text-wrap:pretty;max-width:15em">Turning one-time buyers into <em style="font-style:italic;color:#e8b795">repeat</em> customers.</h1>
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,44px);margin-top:clamp(32px,3.6vw,52px);padding-top:clamp(22px,2.4vw,30px);border-top:1px solid #1d2e27">
+        <div style="min-width:90px">
+          <div class="num" style="font-family:Newsreader,Georgia,serif;font-size:clamp(30px,2.8vw,44px);line-height:0.95;letter-spacing:-0.02em">2 yrs</div>
+          <div style="margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:#7f9188;max-width:16ch">Performance &amp; lifecycle</div>
+        </div>
+        <div style="min-width:90px">
+          <div class="num" style="font-family:Newsreader,Georgia,serif;font-size:clamp(30px,2.8vw,44px);line-height:0.95;letter-spacing:-0.02em">7+</div>
+          <div style="margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:#7f9188;max-width:16ch">D2C brands owned</div>
+        </div>
+        <div style="min-width:110px">
+          <div class="num" style="font-family:Newsreader,Georgia,serif;font-size:clamp(30px,2.8vw,44px);line-height:0.95;letter-spacing:-0.02em">14 → 32%</div>
+          <div style="margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:#7f9188;max-width:18ch">Returning customer rate</div>
+        </div>
+        <div style="min-width:90px">
+          <div class="num" style="font-family:Newsreader,Georgia,serif;font-size:clamp(30px,2.8vw,44px);line-height:0.95;letter-spacing:-0.02em">2×</div>
+          <div style="margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:#7f9188;max-width:16ch">Retention improvement</div>
+        </div>
+      </div>
+      <p style="max-width:46ch;margin:clamp(28px,3vw,40px) 0 0;font-size:clamp(16px,1.25vw,19px);line-height:1.64;color:#c3cec3;text-wrap:pretty">I diagnose where the customer journey breaks, then build the lifecycle systems, segmentation and CRM strategy that move customers toward their next purchase.</p>
+      <a href="#proof" style="display:inline-flex;align-items:center;gap:12px;margin-top:clamp(40px,5vw,72px);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:#8fa197" style-hover="color:#e0a37c">
+        <span>Scroll to explore</span>
+        <span id="scrollcue" style="display:block;position:relative;width:1px;height:38px;background:#22352d;overflow:hidden">
+          <span style="position:absolute;inset:0;background:linear-gradient(#d98a5f,transparent);animation:cueSlide 2.4s ease-in-out infinite"></span>
+        </span>
+      </a>
+    </div>
+
+    <div data-reveal="1" style="justify-self:stretch;align-self:stretch;width:100%;position:relative;min-height:clamp(380px,44vw,620px);display:flex;align-items:center;justify-content:center">
+      <div style="position:absolute;top:2%;left:6%;width:86%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(217,138,95,0.26),rgba(217,138,95,0.06) 46%,rgba(217,138,95,0) 70%);filter:blur(2px);animation:glowPulse 11s ease-in-out infinite;pointer-events:none"></div>
+      <div style="position:absolute;bottom:-4%;right:-2%;width:52%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(143,161,151,0.18),rgba(143,161,151,0) 68%);filter:blur(4px);animation:glowPulse 14s ease-in-out infinite reverse;pointer-events:none"></div>
+      <div style="position:absolute;top:16%;right:8%;width:26%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(232,183,149,0.20),rgba(232,183,149,0) 70%);animation:floatY 13s ease-in-out infinite;pointer-events:none"></div>
+      <div style="position:absolute;bottom:14%;left:2%;width:18%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(217,138,95,0.22),rgba(217,138,95,0) 70%);animation:floatY 9s ease-in-out infinite reverse;pointer-events:none"></div>
+      <div style="position:relative;width:min(100%,430px)">
+        <img src="assets/vishnupriya.jpeg" alt="Vishnupriya at her desk" style="display:block;width:100%;height:auto;filter:saturate(0.74) contrast(1.05) brightness(0.92) sepia(0.10);mask-image:radial-gradient(120% 100% at 50% 45%,#000 58%,rgba(0,0,0,0.6) 80%,rgba(0,0,0,0) 100%);-webkit-mask-image:radial-gradient(120% 100% at 50% 45%,#000 58%,rgba(0,0,0,0.6) 80%,rgba(0,0,0,0) 100%)" />
+        <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(110% 90% at 50% 40%,rgba(217,138,95,0.10),rgba(10,19,16,0.30) 70%,rgba(10,19,16,0.85) 100%);mix-blend-mode:multiply"></div>
+        <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 45% at 72% 16%,rgba(232,183,149,0.18),rgba(232,183,149,0) 60%)"></div>
+      </div>
+      <div style="position:absolute;bottom:2%;left:50%;transform:translateX(-50%);display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.22em;text-transform:uppercase;color:#8fa197;white-space:nowrap">
+        <span>Vishnupriya</span><span style="color:#e0a37c">Retention · Lifecycle · CRM</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:0 5vw clamp(56px,7vw,96px);max-width:1600px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,4vw,64px);align-items:end">
+    <div data-reveal="1" style="width:100%;position:relative">
+      <div style="position:relative;background:#0e1b16;border:1px solid #1d2e27;padding:clamp(20px,2.3vw,30px)">
+        <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#7f9188">
+          <span>Cohort retention · illustrative</span><span style="color:#e0a37c">Interactive</span>
+        </div>
+        <div style="min-height:34px;display:flex;align-items:baseline;gap:10px;margin:16px 0 6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#8fa197">
+          <span style="font-family:Newsreader,Georgia,serif;font-size:30px;line-height:1;letter-spacing:-0.02em" class="num">{{ readValue }}</span>
+          <span>{{ readLabel }}</span>
+        </div>
+        <div style="height:96px;margin:10px 0 20px">{{ curve }}</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:grid;grid-template-columns:56px 1fr;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:#5f7269">
+            <span>Cohort</span>
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;text-align:center">
+              <span>M0</span><span>M1</span><span>M2</span><span>M3</span><span>M4</span><span>M5</span>
+            </div>
+          </div>
+          <sc-for list="{{ heatRows }}" as="row" hint-placeholder-count="4">
+            <div onClick="{{ row.select }}" style="display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;cursor:pointer">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:{{ row.labelColor }}">{{ row.label }}</div>
+              <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px">{{ row.cells }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:20px;padding-top:14px;border-top:1px solid #17261f;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#7f9188">
+          <span>Decay is a structure problem</span><span style="color:#e0a37c">not a volume problem</span>
+        </div>
+      </div>
+    </div>
+    <div data-reveal="1" style="max-width:44ch;padding-bottom:clamp(8px,2vw,28px)">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.24em;text-transform:uppercase;color:#e0a37c;margin-bottom:18px">How I read a brand</div>
+      <p style="margin:0;font-size:clamp(15.5px,1.15vw,17.5px);line-height:1.68;color:#c3cec3">Every account starts as a cohort table, not a campaign calendar. Hover any cell to read what that cohort retained; click a cohort to trace its curve. The gap between the first row and the last is what lifecycle architecture actually buys.</p>
+    </div>
+  </section>
+
+  <section id="proof" style="background:#0e1b16;border-top:1px solid #1d2e27;border-bottom:1px solid #1d2e27;padding:clamp(56px,7vw,104px) 5vw">
+    <div style="max-width:1600px;margin:0 auto">
+      <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:clamp(36px,4.5vw,64px)">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.26em;text-transform:uppercase;color:#e0a37c">The record so far</span>
+        <span style="flex:1;min-width:60px;height:1px;background:#1d2e27"></span>
+      </div>
+      <div id="kpis" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(28px,3.4vw,52px)">
+        <div style="position:relative;border-top:1px solid #2a3d35;padding-top:20px;transition:border-color .3s ease" style-hover="border-top-color:#d98a5f">
+          <div style="position:absolute;top:-18px;left:-14px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(217,138,95,0.16),rgba(217,138,95,0) 70%);pointer-events:none"></div>
+          <div style="position:relative;font-family:Newsreader,Georgia,serif;font-size:clamp(50px,4.8vw,82px);line-height:0.9;letter-spacing:-0.03em"><span class="num">{{ nYears }}</span> <span style="font-size:0.36em;letter-spacing:0.02em;color:#8fa197">years</span></div>
+          <div style="margin-top:16px;font-size:14px;line-height:1.5;color:#9faea4;max-width:22ch">Performance &amp; lifecycle marketing</div>
+        </div>
+        <div style="position:relative;border-top:1px solid #2a3d35;padding-top:20px;transition:border-color .3s ease" style-hover="border-top-color:#d98a5f">
+          <div style="position:absolute;top:-18px;left:-14px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(217,138,95,0.16),rgba(217,138,95,0) 70%);pointer-events:none"></div>
+          <div style="position:relative;font-family:Newsreader,Georgia,serif;font-size:clamp(50px,4.8vw,82px);line-height:0.9;letter-spacing:-0.03em"><span class="num">{{ nBrands }}+</span></div>
+          <div style="margin-top:16px;font-size:14px;line-height:1.5;color:#9faea4;max-width:22ch">D2C brands managed independently</div>
+        </div>
+        <div style="position:relative;border-top:1px solid #2a3d35;padding-top:20px;transition:border-color .3s ease" style-hover="border-top-color:#d98a5f">
+          <div style="position:absolute;top:-18px;left:-14px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(217,138,95,0.16),rgba(217,138,95,0) 70%);pointer-events:none"></div>
+          <div style="position:relative;font-family:Newsreader,Georgia,serif;font-size:clamp(50px,4.8vw,82px);line-height:0.9;letter-spacing:-0.03em"><span class="num">2×</span></div>
+          <div style="margin-top:16px;font-size:14px;line-height:1.5;color:#9faea4;max-width:22ch">Retention rate improvement</div>
+        </div>
+        <div style="position:relative;border-top:1px solid #d98a5f;padding-top:20px;background:radial-gradient(120% 80% at 20% 0%,rgba(217,138,95,0.14),rgba(217,138,95,0) 70%)">
+          <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+            <div style="font-family:Newsreader,Georgia,serif;font-size:clamp(38px,3.6vw,60px);line-height:0.9;letter-spacing:-0.03em;color:#8fa197">14 <span style="color:#e0a37c">→</span> <span class="num">{{ nReturn }}%</span></div>
+            {{ returnRing }}
+          </div>
+          <div style="margin-top:16px;font-size:14px;line-height:1.5;color:#c3cec3;max-width:24ch">Returning customer rate — more than doubled</div>
+        </div>
+        <div style="position:relative;border-top:1px solid #2a3d35;padding-top:20px;transition:border-color .3s ease" style-hover="border-top-color:#d98a5f">
+          <div style="position:absolute;top:-18px;left:-14px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(217,138,95,0.16),rgba(217,138,95,0) 70%);pointer-events:none"></div>
+          <div style="position:relative;font-family:Newsreader,Georgia,serif;font-size:clamp(42px,4.2vw,70px);line-height:0.9;letter-spacing:-0.03em"><span class="num">M1</span> <span style="color:#e0a37c">→</span> <span class="num">M2</span></div>
+          <div style="margin-top:16px;font-size:14px;line-height:1.5;color:#9faea4;max-width:24ch">Cohort growth for pharma-backed wellness</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="padding:clamp(72px,9vw,144px) 5vw;max-width:1600px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(36px,5vw,80px);align-items:start">
+      <div data-reveal="1">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.26em;text-transform:uppercase;color:#e0a37c">01 / The Journey</div>
+        <h2 style="font-family:Newsreader,Georgia,serif;font-weight:400;font-size:clamp(34px,3.9vw,62px);line-height:1.04;letter-spacing:-0.022em;margin:22px 0 0;max-width:20ch;text-wrap:pretty">From visibility metrics to customer behavior.</h2>
+      </div>
+      <div data-reveal="1" style="display:flex;flex-direction:column;gap:22px;font-size:clamp(15.5px,1.15vw,17.5px);line-height:1.7;color:#c3cec3;max-width:62ch">
+        <p style="margin:0"><span style="font-family:Newsreader,Georgia,serif;font-size:1.35em;line-height:1;color:#edf1e9">I started my career in SEO,</span> and a year in, I moved into retention marketing — not because I planned it, but because the problems were more interesting. My team was shifting focus toward retention, and I found myself drawn to the “why” behind customer behavior rather than just visibility metrics.</p>
+        <p style="margin:0">I began as an operational hire — building segments, scheduling campaigns, executing what strategists designed. Within a year, I was independently running the strategy, data diagnostics, and execution for individual client accounts.</p>
+        <p style="margin:0">Today, I manage <mark style="background:rgba(217,138,95,0.16);color:#e8b795;padding:0 4px">7+ D2C brand relationships</mark> end-to-end — across wellness, beauty, food, and streetwear — owning everything from lifecycle architecture to CRM implementation to client reporting.</p>
+      </div>
+    </div>
+
+    <figure data-reveal="1" style="margin:clamp(56px,7vw,104px) 0;border-top:1px solid #2a3d35;border-bottom:1px solid #2a3d35;padding:clamp(32px,4vw,56px) 0">
+      <blockquote style="margin:0;font-family:Newsreader,Georgia,serif;font-weight:400;font-style:italic;font-size:clamp(30px,4.7vw,76px);line-height:1.06;letter-spacing:-0.025em;max-width:26ch;text-wrap:pretty">“I don’t treat retention as <span style="font-style:normal;color:#e0a37c">send more emails</span>.”</blockquote>
+    </figure>
+
+    <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(32px,4vw,72px);align-items:start">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:#7f9188;margin-bottom:18px">Every account starts with a diagnostic</div>
+        <div style="font-family:Newsreader,Georgia,serif;font-size:clamp(24px,2.5vw,38px);line-height:1.16;letter-spacing:-0.015em;max-width:24ch">What’s actually broken in the customer journey?</div>
+      </div>
+      <div style="display:flex;flex-direction:column">
+        <div style="display:grid;grid-template-columns:26px 1fr;gap:14px;padding:15px 0;border-top:1px solid #1d2e27;font-size:16px;color:#c3cec3"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#e0a37c">A</span><span>A deliverability issue?</span></div>
+        <div style="display:grid;grid-template-columns:26px 1fr;gap:14px;padding:15px 0;border-top:1px solid #1d2e27;font-size:16px;color:#c3cec3"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#e0a37c">B</span><span>A funnel leak?</span></div>
+        <div style="display:grid;grid-template-columns:26px 1fr;gap:14px;padding:15px 0;border-top:1px solid #1d2e27;font-size:16px;color:#c3cec3"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#e0a37c">C</span><span>A cohort-specific churn pattern?</span></div>
+        <div style="padding:18px 0 0;border-top:1px solid #1d2e27;font-family:Newsreader,Georgia,serif;font-style:italic;font-size:20px;color:#e8b795">The strategy is built backward from the diagnosis.</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(56px,6vw,96px) 5vw clamp(72px,9vw,132px);max-width:1600px;margin:0 auto">
+    <div data-reveal="1" style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:clamp(36px,4.5vw,64px)">
+      <h3 style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:12px;letter-spacing:0.3em;text-transform:uppercase;margin:0">The Shift</h3>
+      <div style="flex:1;min-width:60px;height:1px;background:#1d2e27"></div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:#7f9188">Execution <span style="color:#e0a37c">→</span> Ownership <span style="color:#e0a37c">→</span> Strategy</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0">
+      <sc-for list="{{ timeline }}" as="t" hint-placeholder-count="3">
+        <div data-reveal="1" style="border-top:1px solid #2a3d35;padding:22px clamp(18px,2.2vw,36px) 26px 0;transition:background .3s ease" style-hover="background:rgba(217,138,95,0.045)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#e0a37c">{{ t.stage }}</div>
+          <div style="font-family:Newsreader,Georgia,serif;font-size:clamp(23px,2.1vw,32px);line-height:1.14;letter-spacing:-0.015em;margin:12px 0 14px;max-width:16ch">{{ t.title }}</div>
+          <p style="margin:0 0 18px;font-size:15px;line-height:1.62;color:#9faea4;max-width:34ch">{{ t.body }}</p>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#7f9188">{{ t.meta }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="expertise" style="padding:clamp(72px,9vw,132px) 5vw;background:#0e1b16;border-top:1px solid #1d2e27;border-bottom:1px solid #1d2e27">
+    <div style="max-width:1600px;margin:0 auto">
+      <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,4vw,72px);align-items:end;margin-bottom:clamp(44px,5.5vw,80px)">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.26em;text-transform:uppercase;color:#e0a37c">02 / What I Solve</div>
+          <h2 style="font-family:Newsreader,Georgia,serif;font-weight:400;font-size:clamp(34px,4.4vw,70px);line-height:1.02;letter-spacing:-0.025em;margin:22px 0 0">Retention is a systems problem.</h2>
+        </div>
+        <p style="margin:0;font-size:16px;line-height:1.66;color:#9faea4;max-width:44ch;justify-self:end">Seven areas where I work. Each is a place a retention funnel commonly breaks — and each demands a different diagnosis before anything gets sent.</p>
+      </div>
+      <div>
+        <sc-for list="{{ expertise }}" as="e" hint-placeholder-count="7">
+          <div data-reveal="1" style="display:flex;flex-wrap:wrap;gap:10px clamp(14px,2.4vw,44px);align-items:baseline;padding:clamp(20px,2.4vw,32px) 0;border-top:1px solid #1d2e27;transition:background .3s ease" style-hover="background:rgba(217,138,95,0.05)">
+            <div style="flex:0 0 34px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#e0a37c">{{ e.n }}</div>
+            <div style="flex:1 1 300px;min-width:0;font-family:Newsreader,Georgia,serif;font-size:clamp(22px,2.15vw,33px);line-height:1.14;letter-spacing:-0.018em;text-wrap:pretty">{{ e.title }}</div>
+            <p style="flex:1 1 340px;min-width:0;margin:0;font-size:15.5px;line-height:1.64;color:#9faea4;max-width:52ch">{{ e.body }}</p>
+          </div>
+        </sc-for>
+        <div style="border-top:1px solid #2a3d35"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="frameworks" style="padding:clamp(72px,9vw,132px) 5vw;max-width:1600px;margin:0 auto">
+    <div data-reveal="1" style="max-width:74ch">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.26em;text-transform:uppercase;color:#e0a37c">03 / How I Think</div>
+      <h2 style="font-family:Newsreader,Georgia,serif;font-weight:400;font-size:clamp(34px,4.4vw,70px);line-height:1.02;letter-spacing:-0.025em;margin:22px 0 24px">Frameworks built from the work.</h2>
+      <p style="margin:0;font-size:clamp(16px,1.2vw,18px);line-height:1.66;color:#c3cec3;max-width:60ch">Repeatable ways of diagnosing retention problems, developed across accounts — so the answer to a falling metric is a structured read of the funnel, not another campaign pulled from a generic playbook.</p>
+    </div>
+
+    <div data-reveal="1" style="margin-top:clamp(56px,7vw,104px);border-top:1px solid #2a3d35;padding-top:clamp(24px,3vw,40px)">
+      <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:#7f9188">Framework 01</span>
+        <h3 style="font-family:Newsreader,Georgia,serif;font-weight:400;font-size:clamp(26px,2.9vw,44px);line-height:1.08;letter-spacing:-0.02em;margin:0">Stimulus vs. Response</h3>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:clamp(28px,4vw,64px);margin-top:clamp(28px,3.4vw,48px);align-items:start">
+        <p style="margin:0;font-size:16px;line-height:1.68;color:#c3cec3;max-width:48ch">Separates what retention marketing actually controls — the stimulus layer — from the behavioral outcomes it is trying to influence. Used to establish whether an underperforming metric is a <em style="font-family:Newsreader,Georgia,serif;font-size:1.06em;color:#e8b795">strategy</em>, <em style="font-family:Newsreader,Georgia,serif;font-size:1.06em;color:#e8b795">execution</em> or <em style="font-family:Newsreader,Georgia,serif;font-size:1.06em;color:#e8b795">deliverability</em> problem — before building another flow.</p>
+        <div style="display:flex;flex-direction:column;width:100%">
+          <div style="border:1px solid #2a3d35;background:#0e1b16;padding:18px 20px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#e0a37c;margin-bottom:14px">Stimulus layer · controllable</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#edf1e9">
+              <span>Flows</span><span style="color:#3c4f46">·</span><span>Triggers</span><span style="color:#3c4f46">·</span><span>Offers</span><span style="color:#3c4f46">·</span><span>Timing</span><span style="color:#3c4f46">·</span><span>Messaging</span><span style="color:#3c4f46">·</span><span>Channels</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="width:1px;height:22px;background:#2a3d35"></div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#7f9188;padding:6px 0">Customer behavior</div>
+            <div style="width:1px;height:22px;background:#2a3d35"></div>
+          </div>
+          <div style="border:1px solid #d98a5f;background:linear-gradient(180deg,rgba(217,138,95,0.1),rgba(217,138,95,0.02));padding:18px 20px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#e8b795;margin-bottom:14px">Response layer · observed</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#edf1e9">
+              <span>Repeat Purchase</span><span style="color:#6d5a4d">·</span><span>AOV</span><span style="color:#6d5a4d">·</span><span>Churn</span><span style="color:#6d5a4d">·</span><span>Retention</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-reveal="1" style="margin-top:clamp(56px,7vw,104px);border-top:1px solid #2a3d35;padding-top:clamp(24px,3vw,40px)">
+      <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:#7f9188">Framework 02</span>
+        <h3 style="font-family:Newsreader,Georgia,serif;font-weight:400;font-size:clamp(26px,2.9vw,44px);line-height:1.08;letter-spacing:-0.02em;margin:0">Backbone Framework</h3>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:clamp(28px,4vw,64px);margin-top:clamp(28px,3.4vw,48px);align-items:start">
+        <p style="margin:0;font-size:16px;line-height:1.68;color:#c3cec3;max-width:48ch">Retention strategy organized as one dependent structure: each layer only works if the one above it is sound, and the loop at the base feeds back into all three.</p>
+        <div style="display:flex;flex-direction:column;border-left:1px solid #d98a5f;padding-left:clamp(20px,2.4vw,36px)">
+          <sc-for list="{{ backbone }}" as="b" hint-placeholder-count="4">
+            <div style="display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid #1d2e27">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#e0a37c">{{ b.n }}</div>
+              <div>
+                <div style="font-family:Newsreader,Georgia,serif;font-size:clamp(20px,1.8vw,27px);line-height:1.15;letter-spacing:-0.015em">{{ b.title }}</div>
+                <div style="margin-top:8px;font-size:14.5px;line-height:1.58;color:#9faea4;max-width:42ch">{{ b.body }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div data-reveal="1" style="margin-top:clamp(56px,7vw,104px);border-top:1px solid #2a3d35;padding-top:clamp(24px,3vw,40px)">
+      <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:#7f9188">Framework 03</span>
+        <h3 style="font-family:Newsreader,Georgia,serif;font-weight:400;font-size:clamp(26px,2.9vw,44px);line-height:1.08;letter-spacing:-0.02em;margin:0">KPI → Flow Decision Framework</h3>
+      </div>
+      <p style="margin:clamp(22px,2.6vw,34px) 0 clamp(26px,3vw,40px);font-size:16px;line-height:1.68;color:#c3cec3;max-width:66ch">Business problem → KPI → diagnosis → flow → trigger. A page from the playbook: what a metric is telling you, and the exact flow family that can move it.</p>
+      <div style="display:flex;flex-direction:column;border-top:1px solid #2a3d35">
+        <sc-for list="{{ kpiRows }}" as="k" hint-placeholder-count="4">
+          <div style="display:flex;flex-wrap:wrap;gap:16px clamp(12px,2vw,36px);padding:clamp(18px,2vw,26px) 0;border-bottom:1px solid #1d2e27;align-items:baseline;transition:background .3s ease" style-hover="background:rgba(217,138,95,0.05)">
+            <div style="flex:1 1 220px;min-width:0">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#7f9188;margin-bottom:8px">KPI</div>
+              <div style="font-family:Newsreader,Georgia,serif;font-size:clamp(19px,1.7vw,26px);line-height:1.14;letter-spacing:-0.015em">{{ k.kpi }}</div>
+            </div>
+            <div style="flex:1 1 260px;min-width:0">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#7f9188;margin-bottom:8px">Diagnosis</div>
+              <div style="font-size:14.5px;line-height:1.58;color:#9faea4">{{ k.diagnosis }}</div>
+            </div>
+            <div style="flex:1 1 260px;min-width:0">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#7f9188;margin-bottom:8px">Flow &amp; trigger</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.6;letter-spacing:0.04em;color:#e0a37c">{{ k.flow }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" style="padding:clamp(72px,9vw,132px) 5vw;background:#0e1b16;border-top:1px solid #1d2e27;border-bottom:1px solid #1d2e27">
+    <div style="max-width:1600px;margin:0 auto">
+      <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,4vw,72px);align-items:end;margin-bottom:clamp(40px,5vw,72px)">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.26em;text-transform:uppercase;color:#e0a37c">04 / Selected Work</div>
+          <h2 style="font-family:Newsreader,Georgia,serif;font-weight:400;font-size:clamp(34px,4.4vw,70px);line-height:1.02;letter-spacing:-0.025em;margin:22px 0 0">Problems first. Campaigns second.</h2>
+        </div>
+        <div style="justify-self:end;display:flex;flex-direction:column;gap:16px;align-items:flex-start">
+          <p style="margin:0;font-size:15.5px;line-height:1.64;color:#9faea4;max-width:40ch">Seven engagements, each traced along the same path: the problem found, the diagnostic run, the system built, the outcome measured.</p>
+          <div style="display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#7f9188;flex-wrap:wrap">
+            <span>Problem</span><span style="color:#d98a5f">→</span><span>Diagnostic</span><span style="color:#d98a5f">→</span><span>Solution</span><span style="color:#d98a5f">→</span><span style="color:#e8b795">Outcome</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:clamp(40px,5vw,76px)">
+        <sc-for list="{{ cases }}" as="c" hint-placeholder-count="7">
+          <div data-reveal="1" class="case" style="position:relative;border-top:1px solid #2a3d35;padding-top:clamp(26px,3vw,42px)">
+            <div style="position:absolute;top:-1px;left:0;width:clamp(90px,14vw,190px);height:1px;background:linear-gradient(90deg,#d98a5f,rgba(217,138,95,0))"></div>
+
+            <div class="case-rail">
+              <div style="display:flex;align-items:flex-start;gap:18px">
+                <div style="position:relative;flex:0 0 auto;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(217,138,95,0.22),rgba(217,138,95,0.02) 70%);border:1px solid #2a3d35">
+                  <span class="num" style="font-family:Newsreader,Georgia,serif;font-size:23px;line-height:1">{{ c.n }}</span>
+                </div>
+                <div style="min-width:0">
+                  <h3 style="margin:0;font-family:Newsreader,Georgia,serif;font-weight:400;font-size:clamp(25px,2.4vw,38px);line-height:1.06;letter-spacing:-0.022em;text-wrap:pretty">{{ c.title }}</h3>
+                  <div style="display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#7f9188">
+                    <span style="color:#e0a37c">{{ c.industry }}</span><span style="color:#3c4f46">·</span><span>{{ c.brandLabel }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="position:relative;margin-top:clamp(24px,2.6vw,34px);padding:22px 24px;border:1px solid #6b5442;background:radial-gradient(130% 110% at 18% 0%,rgba(217,138,95,0.15),rgba(217,138,95,0) 78%);overflow:hidden">
+                <div style="position:absolute;top:-40%;right:-18%;width:62%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(232,183,149,0.16),rgba(232,183,149,0) 68%);pointer-events:none;animation:glowPulse 10s ease-in-out infinite"></div>
+                <div style="position:relative;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.24em;text-transform:uppercase;color:#8fa197">Headline result</div>
+                <div class="num" style="position:relative;font-family:Newsreader,Georgia,serif;font-size:clamp(30px,2.9vw,46px);line-height:1.02;letter-spacing:-0.028em;margin-top:12px">{{ c.headline }}</div>
+              </div>
+
+              <div style="margin-top:clamp(18px,2vw,26px);padding:20px 22px;border-left:2px solid #d98a5f;background:linear-gradient(90deg,rgba(217,138,95,0.10),rgba(217,138,95,0.01))">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.24em;text-transform:uppercase;color:#e0a37c;margin-bottom:12px">Relevant if</div>
+                <p style="margin:0;font-family:Newsreader,Georgia,serif;font-size:clamp(18px,1.5vw,23px);line-height:1.45;letter-spacing:-0.01em;color:#f4f7f0;text-wrap:pretty">{{ c.relevant }}</p>
+              </div>
+
+              <sc-if value="{{ c.note }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:16px;font-size:13px;line-height:1.6;color:#7f9188;max-width:44ch">{{ c.note }}</div>
+              </sc-if>
+            </div>
+
+            <div class="case-steps">
+              <sc-for list="{{ c.stages }}" as="st" hint-placeholder-count="4">
+                <div class="step" style="position:relative;display:grid;grid-template-columns:32px minmax(0,1fr);gap:clamp(14px,1.6vw,22px);padding-bottom:clamp(22px,2.4vw,32px)">
+                  <div style="position:relative;display:flex;flex-direction:column;align-items:center;padding-top:4px">
+                    <div style="width:11px;height:11px;border-radius:50%;background:{{ st.dot }};box-shadow:0 0 0 5px rgba(217,138,95,0.10);flex:0 0 auto"></div>
+                    <div class="step-line" style="flex:1;width:1px;margin-top:6px;background:linear-gradient(180deg,{{ st.track }},rgba(217,138,95,0.10))"></div>
+                    <div class="step-caret" style="font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1;color:{{ st.dot }};margin-top:-2px">▼</div>
+                  </div>
+                  <div style="min-width:0;padding:2px 0 0">
+                    <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px">
+                      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:{{ st.labelColor }}">{{ st.label }}</span>
+                      <span style="flex:1;min-width:20px;height:1px;background:{{ st.track }};opacity:0.55"></span>
+                      <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;color:#5f7269">{{ st.n }} / 04</span>
+                    </div>
+                    <p style="margin:0;font-size:clamp(15px,1.12vw,16.5px);line-height:1.7;color:#d3dcd3;max-width:62ch;text-wrap:pretty">{{ st.body }}</p>
+                    <sc-if value="{{ st.tag }}" hint-placeholder-val="{{ false }}">
+                      <div style="margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#e8b795;background:rgba(217,138,95,0.10);border:1px solid #6b5442;padding:7px 12px">{{ st.tag }}</div>
+                    </sc-if>
+                    <sc-if value="{{ st.big }}" hint-placeholder-val="{{ false }}">
+                      <div class="num" style="font-family:Newsreader,Georgia,serif;font-size:clamp(26px,2.4vw,38px);line-height:1.04;letter-spacing:-0.026em;margin-top:14px">{{ st.big }}</div>
+                    </sc-if>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(72px,9vw,132px) 5vw;max-width:1600px;margin:0 auto">
+    <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(32px,4.5vw,80px);align-items:start">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.26em;text-transform:uppercase;color:#e0a37c">05 / The Stack</div>
+        <h2 style="font-family:Newsreader,Georgia,serif;font-weight:400;font-size:clamp(28px,3vw,46px);line-height:1.06;letter-spacing:-0.022em;margin:20px 0 0;max-width:16ch">The toolbox behind the systems.</h2>
+      </div>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ stack }}" as="s" hint-placeholder-count="3">
+          <div style="border-top:1px solid #1d2e27;padding:clamp(18px,2.2vw,28px) 0">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#7f9188;margin-bottom:12px">{{ s.label }}</div>
+            <div style="font-family:Newsreader,Georgia,serif;font-size:clamp(19px,1.7vw,26px);line-height:1.5;letter-spacing:-0.01em;color:#edf1e9">{{ s.items }}</div>
+          </div>
+        </sc-for>
+        <div style="border-top:1px solid #2a3d35"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="background:#0e1b16;border-top:1px solid #1d2e27;padding:clamp(80px,10vw,160px) 5vw">
+    <div style="max-width:1600px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(36px,5vw,88px);align-items:end">
+      <div data-reveal="1">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.26em;text-transform:uppercase;color:#e0a37c;margin-bottom:clamp(26px,3vw,44px)">Contact</div>
+        <h2 style="font-family:Newsreader,Georgia,serif;font-weight:400;font-size:clamp(36px,5.4vw,88px);line-height:1;letter-spacing:-0.03em;margin:0;max-width:20ch;text-wrap:pretty">If customers aren’t coming back, <em style="font-style:italic;color:#e8b795">let’s find out why.</em></h2>
+      </div>
+      <div data-reveal="1" style="display:flex;flex-direction:column;gap:clamp(28px,3.4vw,44px);align-items:flex-start">
+        <p style="margin:0;font-size:clamp(16px,1.2vw,18px);line-height:1.68;color:#9faea4;max-width:46ch">I work on retention problems where the answer isn’t another campaign — it’s a better diagnosis, a stronger lifecycle system, or a clearer understanding of customer behavior.</p>
+        <a href="mailto:hello@example.com" style="display:inline-flex;align-items:center;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:clamp(12px,1vw,14px);letter-spacing:0.22em;text-transform:uppercase;color:#0a1310;background:#d98a5f;padding:18px 26px;transition:background .3s ease,transform .3s ease" style-hover="background:#e8b795;transform:translateX(4px)">
+          <span>Start a conversation</span><span>→</span>
+        </a>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:#7f9188">Retention · Lifecycle · CRM · Customer Behavior</div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding:clamp(32px,4vw,52px) 5vw;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;align-items:baseline;max-width:1600px;margin:0 auto;border-top:1px solid #1d2e27">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;font-weight:500">Vishnupriya</div>
+      <div style="margin-top:8px;font-size:13.5px;color:#7f9188">Retention Marketing Strategist</div>
+    </div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#7f9188">
+      <a href="#about">About</a><a href="#expertise">Expertise</a><a href="#frameworks">Frameworks</a><a href="#work">Work</a><a href="#contact">Contact</a>
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.14em;color:#5f7269;justify-self:end">© 2026 Vishnupriya</div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;expandAllCases&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Case studies&quot;}}">
+class Component extends DCLogic {
+  state = { open: {}, allOpen: false, nYears: 2, nBrands: 7, nReturn: 32, barsIn: false, sel: 3, hov: null };
+
+  componentDidMount() {
+    const nav = document.getElementById('nav');
+    const prog = document.getElementById('progress');
+    this._onScroll = () => {
+      const y = window.scrollY;
+      if (nav) nav.style.padding = y > 60 ? '13px 5vw' : '20px 5vw';
+      if (prog) {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        prog.style.width = (h > 0 ? Math.min(100, (y / h) * 100) : 0) + '%';
+      }
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+
+    if (!('IntersectionObserver' in window)) return;
+
+    const nodes = Array.from(document.querySelectorAll('[data-reveal]'));
+    nodes.forEach(n => {
+      n.style.opacity = '0';
+      n.style.transform = 'translateY(16px)';
+      n.style.transition = 'opacity .75s cubic-bezier(.2,.6,.2,1), transform .75s cubic-bezier(.2,.6,.2,1)';
+    });
+    this._io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.style.opacity = '1';
+          en.target.style.transform = 'none';
+          this._io.unobserve(en.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    nodes.forEach(n => this._io.observe(n));
+
+    const kpis = document.getElementById('kpis');
+    if (kpis) {
+      const rect = kpis.getBoundingClientRect();
+      const below = rect.top > window.innerHeight * 0.9;
+      if (below) {
+        this.setState({ nYears: 0, nBrands: 0, nReturn: 14 });
+        this._kio = new IntersectionObserver(entries => {
+          if (entries.some(e => e.isIntersecting)) { this.runCounters(); this._kio.disconnect(); }
+        }, { threshold: 0.25 });
+        this._kio.observe(kpis);
+        this._kfallback = setTimeout(() => {
+          if (this._kio) this._kio.disconnect();
+          clearInterval(this._ticker);
+          this._ticker = null;
+          this._done = true;
+          this.setState({ nYears: 2, nBrands: 7, nReturn: 32 });
+        }, 2600);
+      }
+    }
+    this._bt = setTimeout(() => this.setState({ barsIn: true }), 260);
+
+    this._revealFallback = setTimeout(() => {
+      nodes.forEach(n => { n.style.opacity = '1'; n.style.transform = 'none'; });
+      if (this._io) this._io.disconnect();
+    }, 2500);
+  }
+
+  runCounters() {
+    clearTimeout(this._kfallback);
+    if (this._done || this._ticker) return;
+    const start = Date.now();
+    const dur = 1400;
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    const settle = () => {
+      clearInterval(this._ticker);
+      this._ticker = null;
+      this._done = true;
+      this.setState({ nYears: 2, nBrands: 7, nReturn: 32 });
+    };
+    this._ticker = setInterval(() => {
+      const p = Math.min(1, (Date.now() - start) / dur);
+      if (p >= 1) return settle();
+      const e = ease(p);
+      this.setState({
+        nYears: Math.round(2 * e),
+        nBrands: Math.round(7 * e),
+        nReturn: Math.round(14 + 18 * e)
+      });
+    }, 40);
+    this._safety = setTimeout(settle, dur + 600);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._io) this._io.disconnect();
+    if (this._kio) this._kio.disconnect();
+    clearInterval(this._ticker);
+    clearTimeout(this._bt);
+    clearTimeout(this._kfallback);
+    clearTimeout(this._revealFallback);
+    clearTimeout(this._safety);
+  }
+
+  renderVals() {
+    const cases = [
+      {
+        n: '01', title: 'Domain Reputation & Deliverability Recovery', industry: 'D2C wellness / nutrition',
+        headline: 'Inbox restored',
+        problem: 'Email domain reputation had degraded, spam rates were high, and campaigns were landing in spam and promotions instead of the inbox — killing downstream retention metrics.',
+        approach: 'Diagnosed the root cause of reputation decay, planned and executed a structured platform migration and warmup strategy, and rebuilt sending cadence and list hygiene practices.',
+        resultBig: 'Deliverability recovered',
+        result: 'Significant measurable improvement in deliverability and inbox placement, restoring the effectiveness of downstream retention flows.',
+        relevant: 'Your emails are going to spam, or open rates have quietly dropped over time.'
+      },
+      {
+        n: '02', title: 'Retention Rate Turnaround', industry: 'D2C wellness',
+        headline: '14% → 32%',
+        problem: 'Returning customer rate had fallen and needed structural recovery rather than more campaigns.',
+        approach: 'Ran cohort and product-level retention diagnostics to isolate which products and segments were driving churn. Rebuilt post-purchase nurture around actual reorder cycles and restructured broadcast strategy around those findings.',
+        resultBig: '14% → 32%',
+        result: 'Returning customer rate more than doubled.',
+        relevant: 'Your repeat purchase rate has plateaued or declined and you don’t know which segment or product is responsible.',
+        note: 'Brand name withheld until the engagement association is confirmed.'
+      },
+      {
+        n: '03', title: 'Reorder Cohort & M1–M2 Growth', industry: 'Pharma-backed wellness',
+        headline: 'M1 → M2 lift',
+        problem: 'The hero product, Bitter Drops, came in three pack sizes, each creating a distinct reorder cycle. Existing flows weren’t accounting for these differences.',
+        approach: 'Mapped each pack size to its own reorder cohort. Refined lifecycle copy for review and UGC capture, and designed cross-sell sequencing around actual product usage cycles.',
+        resultBig: 'M1 & M2 retention up',
+        result: 'Measurable improvement in M1 and M2 retention for the hero product cohort.',
+        relevant: 'You sell products in multiple sizes or variants but your flows treat every buyer the same way.'
+      },
+      {
+        n: '04', title: 'Funnel & Structural Conversion Fix', industry: 'D2C kids’ & home care',
+        headline: 'Two root causes',
+        problem: 'A structural cart-to-checkout collapse on hero product pages was silently killing conversion. At the same time, a delivery failure across already-executed broadcasts meant campaigns weren’t reaching customers.',
+        approach: 'Ran a full funnel and execution audit, diagnosed both issues independently, and built a prioritized fix list focused on lifting returning customer rate rather than simply increasing top-of-funnel traffic.',
+        resultBig: 'Diagnosed & sequenced',
+        result: 'Identified and sequenced two compounding structural issues before they could distort future campaign performance data.',
+        relevant: 'You’re running campaigns but suspect the funnel itself — not the messaging — is where customers are dropping off.'
+      },
+      {
+        n: '05', title: 'Full Lifecycle Architecture — 0 → 1', industry: 'D2C beauty / skincare',
+        headline: '13 flows built',
+        problem: 'No structured lifecycle marketing system existed. Flows, segmentation and reporting all needed to be built from scratch.',
+        approach: 'Built a complete retention execution package: 13-flow architecture, 90-day build plan, flow copy and segmentation model — structured around concern-family and lifecycle stage rather than generic demographics.',
+        resultBig: '13-flow system, 90-day plan',
+        result: 'A fully documented, execution-ready retention system covering the customer lifecycle.',
+        relevant: 'You have no retention system in place and need one built from the ground up.'
+      },
+      {
+        n: '06', title: 'Multi-Product Churn Diagnosis & Recovery', industry: 'D2C food / nutrition',
+        headline: '~17% → 27%',
+        problem: 'Two specific products were driving a disproportionate share of churn and dragging down overall returning customer rate.',
+        approach: 'Used cohort-timed post-purchase nurture and retention diagnostics to isolate the problem products, then built targeted recovery flows around them.',
+        resultBig: '~17% → 27%',
+        result: 'Returning customer rate recovered across the affected cohorts.',
+        relevant: 'A small number of products or SKUs are quietly dragging down overall retention.'
+      },
+      {
+        n: '07', title: 'Automated Journey & Reporting Infrastructure', industry: 'Streetwear / lifestyle',
+        headline: 'Operating system',
+        problem: 'Needed consistent automated lifecycle journeys and a repeatable reporting cadence for stakeholder visibility.',
+        approach: 'Built and documented automated journey flows and monthly broadcast calendars, and standardized client reporting and POA documentation across two CRM platforms.',
+        resultBig: 'Repeatable & scalable',
+        result: 'Established a repeatable retention operating system across accounts.',
+        relevant: 'Your retention marketing runs ad hoc and you need a consistent, reportable system.'
+      }
+    ];
+
+    const steps = {
+      '01': {
+        brand: 'Brand undisclosed',
+        diagnostic: 'Traced the reputation decay to its root cause across sending history, cadence and list quality — not to creative or offer.',
+        solution: 'Planned and executed a structured platform migration and warmup, then rebuilt sending cadence and list hygiene practices.',
+        diagTag: 'Root cause: sender reputation',
+        solTag: 'Platform migration + warmup'
+      },
+      '02': {
+        brand: 'Brand withheld until confirmed',
+        diagnostic: 'Cohort and product-level retention diagnostics to isolate which products and segments were actually driving churn.',
+        solution: 'Rebuilt post-purchase nurture around real reorder cycles and restructured broadcast strategy around those findings.',
+        diagTag: 'Cohort + product-level analysis',
+        solTag: 'Post-purchase rebuild'
+      },
+      '03': {
+        brand: 'Arth by Emcure',
+        diagnostic: 'Found three pack sizes of the hero product, each producing a distinct reorder cycle that existing flows ignored.',
+        solution: 'Mapped each pack size to its own reorder cohort, refined lifecycle copy for review and UGC capture, and sequenced cross-sell around usage cycles.',
+        diagTag: '3 pack sizes, 3 reorder cycles',
+        solTag: 'Cohort-specific sequencing'
+      },
+      '04': {
+        brand: 'Brand undisclosed',
+        diagnostic: 'A full funnel and execution audit isolated two independent failures: a cart-to-checkout collapse and a broadcast delivery failure.',
+        solution: 'Built a prioritized fix list sequenced around lifting returning customer rate rather than adding top-of-funnel traffic.',
+        diagTag: '2 independent failures found',
+        solTag: 'Prioritized fix roadmap'
+      },
+      '05': {
+        brand: 'Brand undisclosed',
+        diagnostic: 'No lifecycle system existed — no flow architecture, no segmentation model, no reporting layer to read.',
+        solution: '13-flow architecture, a 90-day build plan, flow copy, and segmentation by concern-family × lifecycle stage.',
+        diagTag: 'Zero lifecycle system in place',
+        solTag: '13 flows · 90-day plan'
+      },
+      '06': {
+        brand: 'Brand undisclosed',
+        diagnostic: 'Cohort-timed diagnostics isolated two products carrying a disproportionate share of total churn.',
+        solution: 'Cohort-timed post-purchase nurture plus targeted recovery flows built around those specific products.',
+        diagTag: '2 products driving most churn',
+        solTag: 'Targeted recovery flows'
+      },
+      '07': {
+        brand: 'Brand undisclosed',
+        diagnostic: 'Lifecycle journeys and reporting ran ad hoc, leaving stakeholders without a repeatable view of performance.',
+        solution: 'Documented automated journeys and monthly broadcast calendars; standardized reporting and POA across two CRM platforms.',
+        diagTag: 'No repeatable reporting cadence',
+        solTag: '2 CRM platforms standardized'
+      }
+    };
+
+    const forceOpen = this.props.expandAllCases === true;
+    const casesOut = cases.map(c => {
+      const open = forceOpen || this.state.allOpen || !!this.state.open[c.n];
+      const s = steps[c.n];
+      const stages = [
+        { n: '01', label: 'Problem', body: c.problem, track: '#2a3d35', dot: '#5f7269', labelColor: '#8fa197', bg: 'rgba(255,255,255,0.012)', big: false, tag: false },
+        { n: '02', label: 'Diagnostic', body: s.diagnostic, track: '#42564a', dot: '#8fa197', labelColor: '#c3cec3', bg: 'rgba(143,161,151,0.05)', big: false, tag: s.diagTag || false },
+        { n: '03', label: 'Structured solution', body: s.solution, track: '#8a6549', dot: '#d98a5f', labelColor: '#e0a37c', bg: 'rgba(217,138,95,0.07)', big: false, tag: s.solTag || false },
+        { n: '04', label: 'Outcome', body: c.result, track: '#e8b795', dot: '#e8b795', labelColor: '#e8b795', bg: 'radial-gradient(130% 100% at 15% 0%,rgba(217,138,95,0.17),rgba(217,138,95,0.02) 78%)', big: c.resultBig, tag: false }
+      ];
+      return {
+        ...c, open, stages, brandLabel: s.brand, sign: open ? '–' : '+', note: c.note || false,
+        toggle: () => this.setState(s => ({ open: { ...s.open, [c.n]: !(s.allOpen || s.open[c.n]) }, allOpen: false }))
+      };
+    });
+
+    const rows = [
+      { label: 'C1', note: 'before diagnosis', vals: [100, 52, 28, 20, 17, 16] },
+      { label: 'C2', note: 'flows rebuilt', vals: [100, 58, 33, 25, 21, 20] },
+      { label: 'C3', note: 'reorder cohorts', vals: [100, 64, 40, 32, 28, 27] },
+      { label: 'C4', note: 'lifecycle system live', vals: [100, 71, 48, 39, 35, 32] }
+    ];
+    const grown = this.state.barsIn;
+    const sel = this.state.sel;
+    const hov = this.state.hov;
+
+    const heatRows = rows.map((r, ri) => ({
+      label: r.label,
+      labelColor: ri === sel ? '#e8b795' : '#8fa197',
+      select: () => this.setState({ sel: ri }),
+      cells: r.vals.map((v, i) => {
+        const isHov = hov && hov.r === ri && hov.c === i;
+        const a = grown ? 0.1 + (v / 100) * 0.82 : 0.04;
+        return React.createElement('div', {
+          key: i,
+          onMouseEnter: () => this.setState({ hov: { r: ri, c: i } }),
+          onMouseLeave: () => this.setState({ hov: null }),
+          onClick: () => this.setState({ sel: ri }),
+          style: {
+            height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontFamily: "'IBM Plex Mono', monospace", fontSize: '10px', letterSpacing: '0.04em',
+            color: v > 55 ? '#1a120c' : '#edf1e9',
+            background: 'rgba(217,138,95,' + a.toFixed(3) + ')',
+            outline: isHov ? '1px solid #e8b795' : (ri === sel ? '1px solid rgba(232,183,149,0.35)' : '1px solid transparent'),
+            transform: isHov ? 'scale(1.06)' : 'none',
+            transition: 'background .8s cubic-bezier(.2,.7,.2,1) ' + (ri * 70 + i * 55) + 'ms, transform .25s ease, outline-color .25s ease',
+            cursor: 'pointer'
+          }
+        }, v + '%');
+      })
+    }));
+
+    const active = hov ? rows[hov.r] : rows[sel];
+    const activeIdx = hov ? hov.r : sel;
+    const pts = active.vals.map((v, i) => [i * 20, 40 - v * 0.34]);
+    const curve = React.createElement('svg', {
+      viewBox: '0 0 100 40', preserveAspectRatio: 'none',
+      style: { width: '100%', height: '100%', display: 'block', overflow: 'visible' }
+    }, [
+      React.createElement('defs', { key: 'd' },
+        React.createElement('linearGradient', { id: 'curveFill', x1: '0', y1: '0', x2: '0', y2: '1' }, [
+          React.createElement('stop', { key: 'a', offset: '0%', stopColor: '#d98a5f', stopOpacity: '0.30' }),
+          React.createElement('stop', { key: 'b', offset: '100%', stopColor: '#d98a5f', stopOpacity: '0' })
+        ])
+      ),
+      React.createElement('polygon', {
+        key: 'fill',
+        points: pts.map(p => p.join(',')).join(' ') + ' 100,40 0,40',
+        fill: 'url(#curveFill)',
+        style: { transition: 'all .5s ease' }
+      }),
+      React.createElement('polyline', {
+        key: 'line',
+        points: pts.map(p => p.join(',')).join(' '),
+        fill: 'none', stroke: '#e8b795', strokeWidth: '1', vectorEffect: 'non-scaling-stroke',
+        style: { strokeDasharray: 320, animation: 'drawLine 1.6s ease-out forwards', transition: 'all .5s ease' }
+      })
+    ].concat(pts.map((p, i) => React.createElement('circle', {
+      key: 'p' + i, cx: p[0], cy: p[1], r: (hov && hov.r === activeIdx && hov.c === i) ? 3 : 1.6,
+      fill: '#0e1b16', stroke: '#e8b795', strokeWidth: '1', vectorEffect: 'non-scaling-stroke',
+      style: { transition: 'r .25s ease, cx .5s ease, cy .5s ease' }
+    }))));
+
+    const ringPct = Math.max(0, Math.min(100, this.state.nReturn));
+    const returnRing = React.createElement('div', {
+      style: {
+        position: 'relative', width: '74px', height: '74px', borderRadius: '50%', flex: '0 0 auto',
+        background: 'conic-gradient(#e8b795 0turn ' + (ringPct / 100) + 'turn, rgba(217,138,95,0.14) ' + (ringPct / 100) + 'turn 1turn)'
+      }
+    }, React.createElement('div', {
+      style: {
+        position: 'absolute', inset: '7px', borderRadius: '50%', background: '#0e1b16',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontFamily: "'IBM Plex Mono', monospace", fontSize: '13px', color: '#e8b795'
+      }
+    }, ringPct + '%'));
+
+    return {
+      cases: casesOut,
+      heatRows,
+      curve,
+      returnRing,
+      readValue: hov ? rows[hov.r].vals[hov.c] + '%' : active.vals[5] + '%',
+      readLabel: hov
+        ? rows[hov.r].label + ' cohort · month ' + hov.c + ' retained'
+        : active.label + ' · ' + active.note + ' · M5 retained',
+      nYears: this.state.nYears,
+      nBrands: this.state.nBrands,
+      nReturn: this.state.nReturn,
+      timeline: [
+        { stage: 'Year 1', title: 'SEO Foundation', body: 'Content strategy, competitor analysis, blog and Pinterest strategy for brands like Haritha Foods and Tatva Hills Superfoods.', meta: 'Execution' },
+        { stage: 'Transition', title: 'Retention Marketing', body: 'Segmentation, campaign scheduling and flow execution across WhatsApp, Email and SMS.', meta: 'Ownership' },
+        { stage: 'Year 2', title: 'Retention Strategist', body: 'Independent ownership of 4+ accounts, expanded to 7+. Moved from execution to full-funnel strategy.', meta: 'Data → Lifecycle Design → CRM → Reporting' }
+      ],
+      expertise: [
+        { n: '01', title: 'Retention Rate Diagnostics & Recovery', body: 'Cohort analysis, RFM scoring, identifying which product or segment is dragging down repeat rate, and building recovery flows.' },
+        { n: '02', title: 'Email Deliverability & Domain Reputation', body: 'Spam rate control, warmup strategy, platform migration and sender reputation recovery.' },
+        { n: '03', title: 'AOV & Cross-sell Strategy', body: 'Bundling, upsell and cross-sell flow design, and post-purchase nurture sequencing.' },
+        { n: '04', title: 'Lifecycle Funnel Architecture', body: 'End-to-end flow builds — welcome, abandonment, post-purchase, win-back and VIP — mapped to lifecycle stage.' },
+        { n: '05', title: 'Cohort & Segmentation Strategy', body: 'Pack-size and reorder-cycle cohorts, concern-based segmentation and behavioral triggers.' },
+        { n: '06', title: 'Data & Reporting', body: 'GA4 setup, UTM strategy, Shopify analytics and client-facing performance reporting.' },
+        { n: '07', title: 'Cross-platform CRM Execution', body: 'Convertway, SagePilot, Bitespeed, Mailchimp, Brevo and KwikEngage.' }
+      ],
+      backbone: [
+        { n: '01', title: 'Lifecycle Stage Mapping', body: 'Where each customer actually is between first and next purchase.' },
+        { n: '02', title: 'Segmentation Logic', body: 'Cohorts defined by behavior and reorder cycle, not demographics.' },
+        { n: '03', title: 'Channel × Trigger Matrix', body: 'Which channel fires on which behavioral trigger, and at what cadence.' },
+        { n: '04', title: 'Continuous Diagnostic Loop', body: 'Read the response layer monthly; feed findings back into the three layers above.' }
+      ],
+      kpiRows: [
+        { kpi: 'Retention Rate', diagnosis: 'Reorder timing misaligned with actual usage cycles.', flow: 'Post-purchase + Reorder + Win-back' },
+        { kpi: 'AOV', diagnosis: 'Single-product buyers never see the adjacent product.', flow: 'Cross-sell + Upsell + Bundling' },
+        { kpi: 'Deliverability', diagnosis: 'Sender reputation eroded by cadence and list quality.', flow: 'Sending cadence + Hygiene + Warmup' },
+        { kpi: 'Funnel Drop-off', diagnosis: 'Structural leak, not a messaging problem.', flow: 'Abandonment + Trigger diagnostics' }
+      ],
+      stack: [
+        { label: 'CRM & Marketing Automation', items: 'Mailchimp · Brevo · Bitespeed · SagePilot · Convertway · KwikEngage' },
+        { label: 'Analytics & Reporting', items: 'GA4 · Shopify Analytics · UTM Tracking Frameworks' },
+        { label: 'Channels', items: 'Email · WhatsApp · SMS · RCS · AI Calling · Web Push' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
