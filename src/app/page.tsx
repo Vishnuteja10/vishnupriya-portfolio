@@ -11,6 +11,7 @@ export default function Home() {
   const [hov, setHov] = useState<{ r: number; c: number } | null>(null);
   
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -300,19 +301,44 @@ export default function Home() {
     <div style={{ background: '#0a1310', color: '#edf1e9', fontFamily: '"IBM Plex Sans", system-ui, sans-serif', fontWeight: 300, overflowX: 'hidden' }}>
       
       {/* Sticky Navigation Bar */}
-      <div id="nav" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: 'rgba(10,19,16,0.86)', backdropFilter: 'blur(8px)', borderBottom: '1px solid #1d2e27', padding: '20px 5vw', display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '24px', transition: 'padding .35s ease' }}>
+      <div id="nav" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 90, background: 'rgba(10,19,16,0.92)', backdropFilter: 'blur(12px)', borderBottom: '1px solid #1d2e27', padding: '16px 5vw', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px', transition: 'padding .35s ease' }}>
         <a href="#top" style={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: '13px', letterSpacing: '0.22em', textTransform: 'uppercase', fontWeight: 500 }}>
           Vishnupriya
         </a>
-        <div style={{ display: 'flex', gap: 'clamp(16px, 2.4vw, 34px)', fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px', letterSpacing: '0.16em', textTransform: 'uppercase', color: '#8fa197', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+        <div className="nav-desktop-links" style={{ display: 'flex', gap: 'clamp(16px, 2.4vw, 34px)', fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px', letterSpacing: '0.16em', textTransform: 'uppercase', color: '#8fa197' }}>
           <a href="#about" className="nav-link">About</a>
           <a href="#expertise" className="nav-link">Expertise</a>
           <a href="#frameworks" className="nav-link">Frameworks</a>
           <a href="#work" className="nav-link">Case Studies</a>
           <a href="#contact" className="nav-link">Contact</a>
         </div>
+        <button 
+          className="nav-mobile-toggle"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+          style={{ display: 'none', background: 'none', border: 'none', color: '#edf1e9', cursor: 'pointer', padding: '4px', zIndex: 101 }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            {isMobileMenuOpen ? (
+              <path d="M18 6L6 18M6 6l12 12" />
+            ) : (
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
         <div id="progress" style={{ position: 'absolute', left: 0, bottom: '-1px', height: '1px', width: '0%', background: '#d98a5f', transition: 'width 0.1s ease' }}></div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="mobile-menu-overlay" style={{ position: 'fixed', top: '53px', left: 0, right: 0, bottom: 0, background: 'rgba(10,19,16,0.98)', backdropFilter: 'blur(16px)', zIndex: 85, display: 'flex', flexDirection: 'column', padding: '40px 8vw', gap: '28px', fontFamily: '"IBM Plex Mono", monospace', fontSize: '16px', letterSpacing: '0.18em', textTransform: 'uppercase', borderTop: '1px solid #1d2e27', animation: 'fadeIn 0.2s ease forwards' }}>
+          <a href="#about" onClick={() => setIsMobileMenuOpen(false)} style={{ color: '#edf1e9' }}>About</a>
+          <a href="#expertise" onClick={() => setIsMobileMenuOpen(false)} style={{ color: '#edf1e9' }}>Expertise</a>
+          <a href="#frameworks" onClick={() => setIsMobileMenuOpen(false)} style={{ color: '#edf1e9' }}>Frameworks</a>
+          <a href="#work" onClick={() => setIsMobileMenuOpen(false)} style={{ color: '#edf1e9' }}>Case Studies</a>
+          <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} style={{ color: '#edf1e9' }}>Contact</a>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section id="top" style={{ position: 'relative', padding: 'clamp(56px, 9vw, 132px) 5vw clamp(48px, 6vw, 96px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(330px, 1fr))', gap: 'clamp(40px, 6vw, 88px)', alignItems: 'end', maxWidth: '1600px', margin: '0 auto' }}>
